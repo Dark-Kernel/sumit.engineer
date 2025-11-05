@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uses • sumit.engineer</title>
+    <meta name="description" content="Hardware, software, and tools in my daily development workflow.">
+    
+    <style>
+        :root {
+            --bg: #0f0f0f;
+            --text: #e5e5e5;
+            --accent: #00ff9f;
+            --muted: #888;
+            --border: #333;
+            --bg-subtle: #1a1a1a;
+            --warning: #ff9500;
+            --info: #0099ff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .header {
+            margin-bottom: 3rem;
+        }
+        
+        .prompt {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0.5rem 0 1rem 0;
+        }
+        
+        .back-link {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+        
+        .back-link:hover {
+            color: var(--accent);
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            color: var(--accent);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+        
+        .category {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .category h3 {
+            color: var(--text);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .item-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .item {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 1rem;
+            transition: border-color 0.2s ease;
+        }
+        
+        .item:hover {
+            border-color: var(--accent);
+        }
+        
+        .item-name {
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+        
+        .item-desc {
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .spec-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        
+        .spec-list li {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        
+        .spec-list li::before {
+            content: "→";
+            color: var(--accent);
+            position: absolute;
+            left: 0;
+        }
+        
+        .config-block {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 1rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin-top: 1rem;
+            color: var(--accent);
+        }
+        
+        .dotfiles-link {
+            display: inline-block;
+            background: var(--bg-subtle);
+            color: var(--accent);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            margin-top: 1rem;
+            transition: all 0.2s ease;
+        }
+        
+        .dotfiles-link:hover {
+            border-color: var(--accent);
+            background: rgba(0, 255, 159, 0.1);
+        }
+        
+        .price {
+            color: var(--warning);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="/" class="back-link">← sumit.engineer</a>
+            <div class="prompt">sumit@engineer:~/uses$</div>
+            <h1 class="title">Tools & Setup</h1>
+        </header>
+
+        <section class="section">
+            <h2 class="section-title">$ lscpu && lspci # Hardware</h2>
+            
+            <div class="category">
+                <h3>Workstation</h3>
+                <div class="item-grid">
+                    <div class="item">
+                        <div class="item-name">Custom Build</div>
+                        <div class="item-desc">Primary development machine running Arch Linux</div>
+                        <ul class="spec-list">
+                            <li>Intel Core i3-9100F CPU @ 3.60GHz</li>
+                            <li>16GB DDR4-2600 RAM</li>
+                            <li>1TB HDD</li>
+                            <li>NVIDIA GT218 [GeForce G210]</li>
+                        </ul>
+                    </div>
+                    <div class="item">
+                        <div class="item-name">ThinkPad T480</div>
+                        <div class="item-desc">Mobile development, testing different distros</div>
+                        <ul class="spec-list">
+                            <li>Intel i7-8550U</li>
+                            <li>16GB RAM</li>
+                            <li>512GB SSD</li>
+                            <li>Dual boot: Arch + Void Linux</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category">
+                <h3>Server Infrastructure</h3>
+                <div class="item">
+                    <div class="item-name">Oracle Cloud VPS</div>
+                    <div class="item-desc">Main server hosting all self-hosted services</div>
+                    <ul class="spec-list">
+                        <li>Oracle Linux 8</li>
+                        <li>4 vCPUs, 24GB RAM</li>
+                        <li>100GB Block Storage</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">$ uname -a # Operating Systems</h2>
+            
+            <div class="item-grid">
+                <div class="item">
+                    <div class="item-name">Arch Linux</div>
+                    <div class="item-desc">Daily driver - rolling release, minimal, customizable</div>
+                    <div class="price">Primary</div>
+                </div>
+                <div class="item">
+                    <div class="item-name">Void Linux</div>
+                    <div class="item-desc">Testing alternative - runit init, musl libc experiments</div>
+                    <div class="price">Secondary</div>
+                </div>
+                <div class="item">
+                    <div class="item-name">Oracle Linux 8</div>
+                    <div class="item-desc">Production server - RHEL-compatible, stable</div>
+                    <div class="price">Server</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">$ echo $SHELL && which $EDITOR # Terminal</h2>
+            
+            <div class="category">
+                <h3>Shell & Terminal</h3>
+                <div class="item-grid">
+                    <div class="item">
+                        <div class="item-name">zsh + oh-my-zsh</div>
+                        <div class="item-desc">Customized with plugins: git, docker, kubectl, aws</div>
+                    </div>
+                    <div class="item">
+                        <div class="item-name">Fish</div>
+                        <div class="item-desc">Customized with plugins: transient prompt, autojump, fzf</div>
+                    </div>
+                    <div class="item">
+                        <div class="item-name">Alacritty</div>
+                        <div class="item-desc">GPU-accelerated terminal, YAML config</div>
+                    </div>
+                    <div class="item">
+                        <div class="item-name">tmux</div>
+                        <div class="item-desc">Session management, window splitting</div>
+                    </div>
+                </div>
+
+                <div class="config-block"># Key zsh aliases 
+                    <div class="code">alias ls="eza --icons" </div>
+                    <div class="code">alias v="nvim" </div>
+                    <div class="code">alias mpv="mpv --script=/usr/lib/mpv-mpris/mpris.so" </div>
+                    <div class="code">alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' </div>
+                    <div class="code">alias lsd="ls --sort oldest ~/Downloads | head" </div>
+                    <div class="code">alias lsdd="ls --sort oldest . | head" </div>
+                </div>
+            </div>
+
+            <div class="category">
+                <h3>Editor & IDE</h3>
+                <div class="item-grid">
+                    <div class="item">
+                        <div class="item-name">Neovim</div>
+                        <div class="item-desc">Primary editor with LSP, custom keybindings</div>
+                    </div>
+                    <div class="item">
+                        <div class="item-name">VS Code</div>
+                        <div class="item-desc">GUI development, debugging complex projects</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">$ which python3 && node --version # Development</h2>
+            
+            <div class="item-grid">
+                <div class="item">
+                    <div class="item-name">Python 3.11</div>
+                    <div class="item-desc">Main language, pyenv for version management</div>
+                </div>
+                <div class="item">
+                    <div class="item-name">Node.js 18 LTS</div>
+                    <div class="item-desc">Frontend tooling, CLI utilities, WebRTC projects</div>
+                </div>
+                <div class="item">
+                    <div class="item-name">Docker & Docker Compose</div>
+                    <div class="item-desc">Containerization, development environments</div>
+                </div>
+                <div class="item">
+                    <div class="item-name">Git + GitHub CLI</div>
+                    <div class="item-desc">Version control, automated workflows</div>
+                </div>
+                <div class="item">
+                    <div class="item-name">cURL</div>
+                    <div class="item-desc">API testing, request collections</div>
+                </div>
+                <div class="item">
+                    <div class="item-name">DBeaver</div>
+                    <div class="item-desc">Database management, query optimization</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 self="section-title">$ systemctl list-units --type=service # Self-hosted Services</h2>
+            
+            <div class="item-grid">
+                <div class="item">
+                    <div class="item-name">Nextcloud</div>
+                    <div class="item-desc">File sync, calendar, contacts</div>
+                </div>
+                <div class="item">
+                    <div class="item-name">Paperless NGX</div>
+                    <div class="item-desc">Document management, OCR scanning</div>
+                </div>
+                <div class="item">
+                    <div class="item-name">OpenVPN</div>
+                    <div class="item-desc">Secure remote access to home network</div>
+                </div>
+                <div class="item">
+                    <div class="item-name">Nginx</div>
+                    <div class="item-desc">Reverse proxy, SSL termination</div>
+                </div>
+                <div class="item">
+                    <div class="item-name">Postfix</div>
+                    <div class="item-desc">Mail server, SMTP relay</div>
+                </div>
+                <div class="item">
+                    <div class="item-name">PostgreSQL</div>
+                    <div class="item-desc">Primary database for applications</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">$ cat ~/.config/monitoring # Monitoring & Ops</h2>
+            
+            <div class="item-grid">
+                <div class="item">
+                    <div class="item-name">htop / btop</div>
+                    <div class="item-desc">System resource monitoring</div>
+                </div>
+                <div class="item">
+                    <div class="item-name">journalctl</div>
+                    <div class="item-desc">Systemd log analysis</div>
+                </div>
+                <div class="item">
+                    <div class="item-name">iotop</div>
+                    <div class="item-desc">Disk I/O monitoring</div>
+                </div>
+                <div class="item">
+                    <div class="item-name">netdata</div>
+                    <div class="item-desc">Real-time performance monitoring</div>
+                </div>
+                <div class="item">
+                    <div class="item-name">fail2ban</div>
+                    <div class="item-desc">Intrusion prevention, SSH hardening</div>
+                </div>
+                <div class="item">
+                    <div class="item-name">rsync + cron</div>
+                    <div class="item-desc">Automated backups, data sync</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">$ ls -la ~/dotfiles</h2>
+            <p>All configurations are version controlled and automated for quick system setup:</p>
+            
+            <div class="config-block"># Quick setup script
+curl -fsSL https://raw.githubusercontent.com/Dark-Kernel/dotfiles/main/install.sh | bash
+
+# Includes: zsh config, tmux, neovim, git aliases, systemd services</div>
+            
+            <a href="https://github.com/Dark-Kernel/dots" class="dotfiles-link" target="_blank">
+                View dotfiles repository →
+            </a>
+        </section>
+
+        <footer class="footer">
+            <p>Setup updated regularly • Inspired by <a href="https://uses.tech/" style="color: var(--info);">uses.tech</a></p>
+        </footer>
+    </div>
+</body>
+</html>

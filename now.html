@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Now • sumit.engineer</title>
+    <meta name="description" content="What I'm currently working on, learning, and focusing on.">
+    
+    <style>
+        :root {
+            --bg: #0f0f0f;
+            --text: #e5e5e5;
+            --accent: #00ff9f;
+            --muted: #888;
+            --border: #333;
+            --bg-subtle: #1a1a1a;
+            --warning: #ff9500;
+            --info: #0099ff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .header {
+            margin-bottom: 3rem;
+        }
+        
+        .prompt {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0.5rem 0 1rem 0;
+        }
+        
+        .back-link {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+        
+        .back-link:hover {
+            color: var(--accent);
+        }
+        
+        .last-updated {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-subtle);
+            border-left: 3px solid var(--info);
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            color: var(--accent);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+        
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .status-card {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .status-card.priority {
+            border-left-color: var(--warning);
+        }
+        
+        .status-card.learning {
+            border-left-color: var(--info);
+        }
+        
+        .card-title {
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+        
+        .card-desc {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        
+        .progress-bar {
+            background: var(--border);
+            height: 4px;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .progress-text {
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+        
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .tech-tag {
+            background: var(--bg);
+            color: var(--accent);
+            padding: 0.25rem 0.5rem;
+            font-size: 0.8rem;
+            border: 1px solid var(--border);
+        }
+        
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .metric {
+            text-align: center;
+            background: var(--bg-subtle);
+            padding: 1rem;
+            border: 1px solid var(--border);
+        }
+        
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            display: block;
+        }
+        
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-top: 0.25rem;
+        }
+        
+        .reading-list {
+            list-style: none;
+        }
+        
+        .reading-item {
+            background: var(--bg-subtle);
+            margin-bottom: 0.5rem;
+            padding: 1rem;
+            border-left: 2px solid var(--muted);
+        }
+        
+        .reading-item.completed {
+            border-left-color: var(--accent);
+            opacity: 0.7;
+        }
+        
+        .reading-title {
+            font-weight: 600;
+            color: var(--text);
+        }
+        
+        .reading-author {
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+        
+        .footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="/" class="back-link">← sumit.engineer</a>
+            <div class="prompt">sumit@engineer:~/now$</div>
+            <h1 class="title">Current Focus</h1>
+        </header>
+
+        <div class="last-updated">
+            Last updated: January 2025 • This page follows the <a href="https://nownownow.com/" style="color: var(--info);" target="_blank">/now movement</a>
+        </div>
+
+        <section class="section">
+            <h2 class="section-title">$ ps aux | grep current_projects</h2>
+            <div class="status-grid">
+                <div class="status-card priority">
+                    <div class="card-title">LSTT Linux-contextual Speech-to-text</div>
+                    <div class="card-desc">Building the voice over whisper that can detect the tech and linux jargons including specific commands, tools and their arguments.</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 50%;"></div>
+                    </div>
+                    <div class="progress-text">50% - Basic keyword catching Along with the sentence</div>
+                    <div class="tech-list">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Whisper</span>
+                        <span class="tech-tag">Jellyfish</span>
+                    </div>
+                </div>
+
+                <div class="status-card priority">
+                    <div class="card-title">ScrollConnect Platform</div>
+                    <div class="card-desc">Building the core analytics engine and API endpoints for social media insights. Currently implementing data pipeline optimization.</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 80%;"></div>
+                    </div>
+                    <div class="progress-text">80% - API routes & data processing</div>
+                    <div class="tech-list">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">NextJS</span>
+                        <span class="tech-tag">FastAPI</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                    </div>
+                </div>
+                
+                <div class="status-card">
+                    <div class="card-title">Infrastructure Upgrade</div>
+                    <div class="card-desc">Migrating self-hosted services to container orchestration and implementing automated backups across all services.</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 90%;"></div>
+                    </div>
+                    <div class="progress-text">90% - Docker compose configs</div>
+                    <div class="tech-list">
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">Systemd</span>
+                        <span class="tech-tag">Rsync</span>
+                    </div>
+                </div>
+
+
+                <!-- Finance Advisor -->
+                <div class="status-card priority">
+                    <div class="card-title">FinSight: Financial advisor</div>
+                    <div class="card-desc">Designing and implementing a personalized finance advisor to help users manage their finances effectively.</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 60%;"></div>
+                    </div>
+                    <div class="progress-text">60% - Model Training & Recommendation</div>
+                    <div class="tech-list">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">AI/ML</span>
+                        <span class="tech-tag">LSTM</span>
+                    </div>
+                </div>
+                
+                <div class="status-card">
+                    <div class="card-title">TuxTalk Enhancement</div>
+                    <div class="card-desc">Adding file transfer capabilities and improving the terminal UI for better user experience in CLI chat sessions.</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 60%;"></div>
+                    </div>
+                    <div class="progress-text">60% - File transfer protocol</div>
+                    <div class="tech-list">
+                        <span class="tech-tag">WebRTC</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">Terminal UI</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">$ cat /var/log/learning.log</h2>
+            <div class="status-grid">
+                <div class="status-card learning">
+                    <div class="card-title">Kubernetes Deep Dive</div>
+                    <div class="card-desc">Moving beyond Docker Compose to understand container orchestration at scale. Currently working through CKA study materials.</div>
+                    <div class="tech-list">
+                        <span class="tech-tag">K8s</span>
+                        <span class="tech-tag">Helm</span>
+                        <span class="tech-tag">kubectl</span>
+                    </div>
+                </div>
+                
+                <div class="status-card learning">
+                    <div class="card-title">MLOps</div>
+                    <div class="card-desc">Implementing MLOps best practices and tools to optimize model training and deployment pipelines.</div>
+                    <div class="tech-list">
+                        <span class="tech-tag">PyTorch</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">MLFlow</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">$ top -p mentoring</h2>
+            <div class="metrics">
+                <div class="metric">
+                    <span class="metric-value">10</span>
+                    <div class="metric-label">Active mentees (ITSA)</div>
+                </div>
+                <div class="metric">
+                    <span class="metric-value">2</span>
+                    <div class="metric-label">Workshops this month</div>
+                </div>
+                <div class="metric">
+                    <span class="metric-value">3</span>
+                    <div class="metric-label">Projects guided</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">$ cat ~/reading_queue.txt</h2>
+            <ul class="reading-list">
+                <li class="reading-item completed">
+                    <div class="reading-title">Let us C</div>
+                    <div class="reading-author">Yashavant Kanetkar</div>
+                </li>
+                <li class="reading-item">
+                    <div class="reading-title">Advanced Bash Scripting</div>
+                    <div class="reading-author">TLDP.org</div>
+                </li>
+                <li class="reading-item">
+                    <div class="reading-title">Deploying Kubernetes with Security and Compliance in Mind</div>
+                    <div class="reading-author">Linux journal</div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">$ crontab -l # Routines</h2>
+            <div class="card-desc" style="background: var(--bg-subtle); padding: 1rem; border-left: 3px solid var(--accent); font-family: inherit;">
+                • Daily: System maintenance, backup verification, knowledge base updates<br>
+                • Weekly: Infrastructure health checks, dependency updates<br>
+                • Monthly: Performance reviews, architecture documentation<br>
+                • Continuous: Code, Reviews, learning sprints
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>This page is updated monthly • Inspired by <a href="https://nownownow.com/" style="color: var(--info);">nownownow.com</a></p>
+        </footer>
+    </div>
+</body>
+</html>

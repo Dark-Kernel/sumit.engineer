@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sumit • Backend Developer & DevOps Engineer</title>
+    <meta name="description" content="Backend developer and DevOps engineer specializing in self-hosted infrastructure, Linux systems, and scalable web services.">
+    
+    <style>
+        :root {
+            --bg: #0f0f0f;
+            --text: #e5e5e5;
+            --accent: #00ff9f;
+            --muted: #888;
+            --border: #333;
+            --bg-subtle: #1a1a1a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .header {
+            margin-bottom: 3rem;
+        }
+        
+        .prompt {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0.5rem 0 1rem 0;
+        }
+        
+        .subtitle {
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+        
+        .nav a {
+            color: var(--text);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            background: var(--bg-subtle);
+            transition: all 0.2s ease;
+        }
+        
+        .nav a:hover {
+            border-color: var(--accent);
+            background: rgba(0, 255, 159, 0.1);
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            color: var(--accent);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .card {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            transition: border-color 0.2s ease;
+	    cursor: pointer;
+        }
+        
+        .card:hover {
+            border-color: var(--accent);
+        }
+        
+        .card-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+        
+        .card-desc {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tech-stack {
+            font-size: 0.8rem;
+            color: var(--accent);
+        }
+        
+        .stack-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .stack-category {
+            background: var(--bg-subtle);
+            border-left: 3px solid var(--accent);
+            padding: 1rem;
+        }
+        
+        .stack-category h4 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .stack-items {
+            color: var(--muted);
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        
+        .infrastructure-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .infra-item {
+            background: var(--bg-subtle);
+            padding: 0.75rem;
+            border-left: 2px solid var(--accent);
+            font-size: 0.9rem;
+        }
+        
+        .philosophy {
+            background: var(--bg-subtle);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            font-style: italic;
+            color: var(--muted);
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+        
+        /*.contact-item {
+            text-align: center;
+            padding: 1rem;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }*/
+
+	/* Make anchor act like a block container */
+	.contact-item {
+		display: block; /* ensure block level */
+		text-align: center;
+		padding: 1rem;
+		background: var(--bg-subtle);
+		border: 1px solid var(--border);
+		transition: all 0.2s ease;
+		color: var(--text);
+		font-size: 0.9rem;
+		text-decoration: none; /* remove underline */
+		cursor: pointer; /* indicate clickable */
+	}
+
+        
+        .contact-item:hover {
+            border-color: var(--accent);
+            background: rgba(0, 255, 159, 0.05);
+        }
+        
+        .contact-item a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.8rem;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .nav {
+                gap: 0.5rem;
+            }
+            
+            .nav a {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="prompt">sumit@engineer:~$</div>
+            <h1 class="title">Backend Developer & DevOps Engineer</h1>
+            <p class="subtitle">Building scalable infrastructure, self-hosting services, and crafting efficient systems on Linux.</p>
+            
+            <nav class="nav">
+                <a href="https://blogs.sumit.engineer/Sumit-Patel.pdf" target="_blank">resume.pdf</a>
+                <a href="https://blogs.sumit.engineer" target="_blank">blog/</a>
+                <a href="https://github.com/Dark-Kernel" target="_blank">github/</a>
+                <a href="https://blogs.sumit.engineer/notes/" target="_blank">KB/</a>
+                <a href="/now">now</a>
+                <a href="/uses">uses</a>
+                <a href="/lab">lab</a>
+                <a href="/til">TIL</a>
+            </nav>
+        </header>
+
+        <section class="section">
+            <h2 class="section-title">$ whoami</h2>
+            <p>Systems-oriented engineer focused on backend development and infrastructure automation. I daily-drive Arch Linux, maintain self-hosted services, and build tools that solve real problems. Currently mentoring at ITSA while working on projects that span from CLI utilities to scalable web platforms.</p>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">$ ls -la ~/projects</h2>
+            <div class="grid">
+                <div class="card" data-title="TUISIC" data-desc="TUISIC is a terminal-based music streaming application built in C++ using FTXUI for UI and libmpv for playback. It supports streaming from multiple sources with keyboard-only interaction and minimal system resource usage." 
+                    data-src="https://github.com/Dark-Kernel/tuisic"
+                    data-link="https://github.com/Dark-Kernel/tuisic"
+                    data-img="https://blogs.sumit.engineer/showcase/1743954314_grim.png">
+                    <div class="card-title">TUISIC</div>
+                    <div class="card-desc">TUI-based music streaming app in C++ with easy vim motions</div>
+                    <div class="tech-stack">C++ • FTXUI • libmpv • libcurl</div>
+                </div>
+                <div class="card"
+                    data-title="ScrollConnect"
+                    data-desc=" A web platform connecting college clubs and industries through events, used by 2000+ users. I developed secure backend APIs with Supabase and JWT-based access control using RLS policies. Integrated GenAI to auto-generate event descriptions and FAQs, reducing manual input by 60%. Handled event video storage and delivery using Cloudflare R2 for efficient performance and cost optimization."
+                    data-src=""
+                    data-link="https://scrollconnect.com"
+                    data-img="https://blogs.sumit.engineer/scrollconnect.png"
+                    >
+                    <div class="card-title">ScrollConnect</div>
+                    <div class="card-desc">Web platform connecting colleges and industries</div>
+                    <div class="tech-stack">Python • Postgres • APIs • NextJS</div>
+                </div>
+		<div class="card" data-title="FinSight" data-desc="The Personal Financial Health Scoring & Advisory System is a sophisticated financial wellness assessment tool that transforms complex financial data into actionable insights. By analyzing multiple dimensions of financial health, the system provides users with a comprehensive score (0-100) and personalized recommendations to improve their financial well-being. It provides you asset allocations that can be used for investment in different sources, enabling stable growth according to personal's financial risk and financial profile."
+                    data-src="https://github.com/Dark-Kernel/finsight"
+                    data-link="https://github.com/Dark-Kernel/finsight"
+                    data-img="https://blogs.sumit.engineer/finsight.jpg">
+                    <div class="card-title">FinSight</div>
+                    <div class="card-desc">Hybrid Machine Learning framework for personalized financial investment recommendation.</div>
+		    <div class="tech-stack">Python • Flask • AI/ML • RandomForest &nbsp;<br>GradientBoosting • KMeans • Apriori </div>
+                </div>
+                <div class="card"
+                    data-title="ArchInsights"
+                    data-desc="A real-time social media analytics system that delivers insights on post performance, trends, and engagement spikes. I built the backend using Supabase, Langflow, and AstraDB, and added a RAG-based chat interface using NVIDIA’s embed-QA for contextual querying. Also developed visualization modules to track time-based engagement and event-driven insights."
+                    data-src="https://github.com/Dark-Kernel/ArchAngelsFlowUI"
+                    data-link="https://instalytics-taupe.vercel.app/"
+                    data-img="https://blogs.sumit.engineer/archinsight.png"
+                    >
+                    <div class="card-title">ArchInsights</div>
+                    <div class="card-desc">Real-time social media analytics and actionable insights</div>
+		    <div class="tech-stack">React • Tailwind • AI/ML • Python &nbsp; <br> PineconeDB • Apriori • KMeans </div>
+                </div>
+                <div class="card"
+                    data-title="SomeWhatKasm"
+                    data-desc="A simple python script that uses docker engine to provide disposable browser orchestration. This is an python project that tries to mimic the KASM workspace but very flexible and provides api support. You can create create, start, delete disposable container browser. It binds the sessions to particular userid and stores that in sqlite, helps to provide multi-user accesibility."
+                    data-src="https://github.com/Dark-Kernel/somewhatkasm"
+                    data-link="https://github.com/Dark-Kernel/somewhatkasm"
+                    data-img="https://blogs.sumit.engineer/secyourvault.png"
+                    >
+                    <div class="card-title">SomeWhatKasm</div>
+                    <div class="card-desc">This is an python project that tries to mimic the KASM workspace but very flexible and provides api support.</div>
+		    <div class="tech-stack">Python • Docker • SQLite • VNC</div>
+                </div>
+                <div class="card"
+                    data-title="StateCraft"
+                    data-desc="An interactive platform to visualize and simulate DFA/NFA automata concepts for Theory of Computation. Built with React and TypeScript, using React Flow and Cytoscape.js for dynamic graph rendering. Features include building state machines, testing regex, and managing background simulations with Orkes. Designed for intuitive learning and responsive use across devices."
+                    data-src="https://github.com/Z-xus/statecraft"
+                    data-link="https://statecraft-by-archangels.web.app/"
+                    data-img="https://blogs.sumit.engineer/statecraft.png"
+                    >
+                    <div class="card-title">StateCraft</div>
+                    <div class="card-desc">Theory of Computation visualizer</div>
+                    <div class="tech-stack">React • TypeScript • Cytoscape • Orkes</div>
+                </div>
+                <div class="card"
+                    data-title="Thrifty"
+                    data-desc=" A backend for a price comparison tool that tracks products across platforms and sends fluctuation alerts via a personal Linux mail server. Built with NodeJS, ExpressJS, and MongoDB, with automated Docker-Jenkins CI for deployment. Optimized for high load, modular scrapers, and extendable API design."
+                    data-src="https://github.com/NaufilAsar/thrifty-shopping-assistant"
+                    data-link="https://thrifty-shopping-assistant.web.app"
+                    data-img="https://blogs.sumit.engineer/thrifty.png"
+                    >
+                    <div class="card-title">Thrifty</div>
+                    <div class="card-desc">E-shopping assistant with price alerts</div>
+                    <div class="tech-stack">Node.js • Express • MongoDB • Jenkins</div>
+                </div>
+
+                <div class="card"
+                    data-title="TuxTalk"
+                    data-desc="TuxTalk is a WebRTC-based CLI chat application for peer-to-peer communication. Built with Node.js and Blessed for a terminal-based UI, it allows users to connect and chat directly over WebRTC using TURN server, supporting text messaging and file transfers for now."
+                    data-src="https://github.com/Dark-Kernel/TuxTalk"
+                    data-link=""
+                    data-img="https://blogs.sumit.engineer/tuxtalk.png"
+                    >
+                    <div class="card-title">TuxTalk</div>
+                    <div class="card-desc">CLI-based WebRTC chat application</div>
+                    <div class="tech-stack">WebRTC • Node.js • Terminal UI</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">$ systemctl status infrastructure</h2>
+            <div class="infrastructure-list">
+                <div class="infra-item">Nextcloud</div>
+                <div class="infra-item">OpenVPN</div>
+                <div class="infra-item">Paperless NGX</div>
+                <div class="infra-item">Postfix</div>
+                <div class="infra-item">Nginx</div>
+                <div class="infra-item">Oracle Linux 8 VPS</div>
+                <div class="infra-item">Hugo Static Sites</div>
+                <div class="infra-item">Yellow CMS</div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">$ cat /proc/stack</h2>
+            <div class="stack-grid">
+                <div class="stack-category">
+                    <h4>Languages</h4>
+                    <div class="stack-items">Python • CPP • JavaScript • Bash • SQL</div>
+                </div>
+                <div class="stack-category">
+                    <h4>Backend</h4>
+                    <div class="stack-items">Flask • FastAPI • Node.js • PostgreSQL • Redis • MongoDB</div>
+                </div>
+                <div class="stack-category">
+                    <h4>DevOps</h4>
+                    <div class="stack-items">Docker • Docker Compose • Kubernetes • Ansible • Prometheus • Grafana • Nginx • Systemd • Cron • Git</div>
+                </div>
+                <div class="stack-category">
+                    <h4>Systems</h4>
+                    <div class="stack-items">Arch Linux • Oracle Linux • Void • Gentoo</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">$ cat ~/.philosophy</h2>
+            <div class="philosophy">
+                "Build tools that work. Host your own services. Understand your stack from the kernel up. 
+                Prefer simplicity over complexity, documentation over assumptions, and automation over repetition. 
+                The best software is invisible to the user but transparent to the maintainer."
+            </div>
+        </section>
+
+	
+       <!-- <section class="section">
+            <h2 class="section-title">$ cat ~/.contact</h2>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <a href="mailto:hello@sumit.engineer">Email</a>
+                </div>
+                <div class="contact-item">
+                    <a href="https://github.com/Dark-Kernel" target="_blank">GitHub</a>
+                </div>
+                <div class="contact-item">
+                    <a href="https://linkedin.com/in/sumit-patel-dev" target="_blank">LinkedIn</a>
+                </div>
+                <div class="contact-item">
+                    <a href="https://blogs.sumit.engineer/Sumit-Patel.pdf" target="_blank">Resume</a>
+                </div>
+            </div>
+        </section>
+       -->
+       <section class="section">
+	       <h2 class="section-title">$ cat ~/.contact</h2>
+	       <div class="contact-grid">
+		       <a href="mailto:hello@sumit.engineer" class="contact-item">Email</a>
+		       <a href="https://github.com/Dark-Kernel" target="_blank" class="contact-item">GitHub</a>
+		       <a href="https://linkedin.com/in/sumit-patel-dev" target="_blank" class="contact-item">LinkedIn</a>
+		       <a href="https://blogs.sumit.engineer/Sumit-Patel.pdf" target="_blank" class="contact-item">Resume</a>
+	       </div>
+       </section>
+
+
+        <footer class="footer">
+            <p>Built with vanilla HTML/CSS • Hosted on self-managed infrastructure • Last updated: $(date)</p>
+        </footer>
+    </div>
+    <div id="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#000a; z-index:9999; justify-content:center; align-items:center;">
+        <div style="background:#1a1a1a; padding:2rem; border:1px solid #333; max-width:600px; width:90%; color:#e5e5e5; position:relative;">
+            <button id="close-modal" style="position:absolute; top:10px; right:10px; background:none; border:none; color:#888; font-size:1.2rem;cursor: pointer;">×</button>
+            <h3 id="modal-title" style="color:#00ff9f; margin-bottom:1rem;"></h3>
+            <img id="modal-img" src="" alt="" style="max-width:100%; margin-bottom:1rem; display:none; border:1px solid #333;">
+            <p id="modal-desc" style="color:#ccc; font-size:0.95rem; line-height:1.5; margin-bottom:1rem;"></p>
+            <div id="modal-links" style="font-size:0.85rem;">
+                <a id="modal-src" href="#" target="_blank" style="color:#00ff9f; margin-right:1rem;">[source]</a>
+                <a id="modal-link" href="#" target="_blank" style="color:#00ff9f; display:none;">[visit]</a>
+            </div>
+        </div>
+    </div>
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f2b51e01b20848a4a20ac54e636925f1"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+
+<script>
+document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => {
+        const title = card.getAttribute('data-title');
+        const desc = card.getAttribute('data-desc');
+        const src = card.getAttribute('data-src');
+        const link = card.getAttribute('data-link');
+        const img = card.getAttribute('data-img');
+        <!-- if (link) window.open(link, '_blank'); -->
+        <!-- if (demo) window.open(demo, '_blank'); -->
+        document.getElementById('modal-title').textContent = title;
+        document.getElementById('modal-desc').textContent = desc;
+        const modalImg = document.getElementById('modal-img');
+        if (img) {
+            modalImg.src = img;
+            modalImg.style.display = 'block';
+        } else {
+            modalImg.style.display = 'none';
+        }
+
+        const modalSrc = document.getElementById('modal-src');
+        modalSrc.href = src;
+
+        const modalLink = document.getElementById('modal-link');
+        if (link) {
+            modalLink.href = link;
+            modalLink.style.display = 'inline';
+        } else {
+            modalLink.style.display = 'none';
+        }
+
+        document.getElementById('modal').style.display = 'flex';
+    });
+});
+document.getElementById('close-modal').addEventListener('click', () => {
+    document.getElementById('modal').style.display = 'none';
+});
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+        const closeButton = document.getElementById('close-modal');
+        if (closeButton) {
+            closeButton.click();
+        }
+    }
+});
+window.addEventListener('click', e => {
+    if (e.target.id === 'modal') document.getElementById('modal').style.display = 'none';
+});
+</script>
+<!-- Cloudflare Web Analytics <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f2b51e01b20848a4a20ac54e636925f1"}'></script> -->
+</html>

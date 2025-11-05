@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab • sumit.engineer</title>
+    <meta name="description" content="Experimental projects, proof-of-concepts, and technical explorations.">
+    
+    <style>
+        :root {
+            --bg: #0f0f0f;
+            --text: #e5e5e5;
+            --accent: #00ff9f;
+            --muted: #888;
+            --border: #333;
+            --bg-subtle: #1a1a1a;
+            --warning: #ff9500;
+            --info: #0099ff;
+            --error: #ff4444;
+            --success: #00d26a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .header {
+            margin-bottom: 3rem;
+        }
+        
+        .prompt {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0.5rem 0 1rem 0;
+        }
+        
+        .back-link {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+        
+        .back-link:hover {
+            color: var(--accent);
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            color: var(--accent);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+        
+        .experiment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .experiment {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .experiment:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        
+        .experiment.active {
+            border-left: 4px solid var(--success);
+        }
+        
+        .experiment.paused {
+            border-left: 4px solid var(--warning);
+        }
+        
+        .experiment.archived {
+            border-left: 4px solid var(--muted);
+            opacity: 0.7;
+        }
+        
+        .experiment.failed {
+            border-left: 4px solid var(--error);
+        }
+        
+        .status-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            border-radius: 2px;
+            text-transform: uppercase;
+        }
+        
+        .status-badge.active {
+            background: var(--success);
+            color: var(--bg);
+        }
+        
+        .status-badge.paused {
+            background: var(--warning);
+            color: var(--bg);
+        }
+        
+        .status-badge.archived {
+            background: var(--muted);
+            color: var(--bg);
+        }
+        
+        .status-badge.failed {
+            background: var(--error);
+            color: var(--bg);
+        }
+        
+        .experiment-title {
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.75rem;
+            margin-right: 4rem;
+        }
+        
+        .experiment-desc {
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+        
+        .experiment-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tech-tag {
+            background: var(--bg);
+            color: var(--accent);
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            border: 1px solid var(--border);
+        }
+        
+        .experiment-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-bottom: 1rem;
+        }
+        
+        .experiment-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .experiment-links a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+        
+        .experiment-links a:hover {
+            color: var(--warning);
+        }
+        
+        .learnings {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 1rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            border-left: 3px solid var(--info);
+        }
+        
+        .learnings-title {
+            color: var(--info);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border);
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-top: 0.25rem;
+        }
+        
+        .idea-list {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+        }
+        
+        .idea-item {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+        
+        .idea-item:last-child {
+            border-bottom: none;
+        }
+        
+        .idea-item::before {
+            content: "💡 ";
+            margin-right: 0.5rem;
+        }
+        
+        .footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="/" class="back-link">← sumit.engineer</a>
+            <div class="prompt">sumit@engineer:~/lab$</div>
+            <h1 class="title">Experiments & Prototypes</h1>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat">
+                <span class="stat-value">15</span>
+                <div class="stat-label">Total Experiments</div>
+            </div>
+            <div class="stat">
+                <span class="stat-value">4</span>
+                <div class="stat-label">Active Projects</div>
+            </div>
+            <div class="stat">
+                <span class="stat-value">8</span>
+                <div class="stat-label">Completed</div>
+            </div>
+            <div class="stat">
+                <span class="stat-value">7</span>
+                <div class="stat-label">Technologies Explored</div>
+            </div>
+        </div>
+
+        <section class="section">
+            <h2 class="section-title">$ ps aux | grep active_experiments</h2>
+            <div class="experiment-grid">
+                <div class="experiment active">
+                    <div class="status-badge active">Active</div>
+                    <h3 class="experiment-title">Archthing - My Personal OS</h3>
+                    <div class="experiment-desc">
+                        A personal OS built on the top of Arch Linux that mimics my current setup. It's a work in progress, and I'm working on it..
+                    </div>
+                    <div class="experiment-tech">
+                        <span class="tech-tag">Arch Linux</span>
+                        <span class="tech-tag">Neovim</span>
+                        <span class="tech-tag">Hyprland</span>
+                        <span class="tech-tag">DWM</span>
+                        <span class="tech-tag">Alacritty</span>
+                        <span class="tech-tag">Fish</span>
+                        <span class="tech-tag">Wayland</span>
+                        <span class="tech-tag">Xorg</span>
+                        <span class="tech-tag">Pywal</span>
+                        <span class="tech-tag">Waybar</span>
+                    </div>
+                    <div class="experiment-meta">
+                        <span>Started: July 2025</span>
+                        <span>Progress: 25%</span>
+                    </div>
+                    <div class="experiment-links">
+                        <a href="https://github.com/Dark-Kernel/Archthing" target="_blank">repo</a>
+                        <!-- <a href="https://github.com/sumit/archthing" target="_blank">docs</a> -->
+                    </div>
+                    <div class="learnings">
+                        <div class="learnings-title">Checkout</div>
+                        <code>https://blogs.sumit.engineer/showcase</code>
+                    </div>
+                </div>
+
+
+                <!-- TenderDekho --> 
+                <div class="experiment active">
+                    <div class="status-badge active">Active</div>
+                    <h3 class="experiment-title">TenderDekho - AI-Based tender explorer</h3>
+                    <div class="experiment-desc">
+                        A web app that uses AI to analyze tender documents and provide insights in realtime. Gets all the tender documents from various government websites and displays them in a user-friendly format.
+                    </div>
+                    <div class="experiment-tech">
+                        <span class="tech-tag">NodeJS</span>
+                        <span class="tech-tag">ExpressJS</span>
+                        <span class="tech-tag">NextJS</span>
+                        <span class="tech-tag">Tailwind</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">Docker</span>
+                    </div>
+                    <div class="experiment-meta">
+                        <span>Started: April 2025</span>
+                        <span>Progress: 25%</span>
+                    </div>
+                    <div class="experiment-links">
+                        <a href="https://www.tenderdekho.in" target="_blank">demo</a>
+                        <!-- <a href="https://github.com/sumit/tenderdekho" target="_blank">docs</a> -->
+                    </div>
+                </div>
+
+
+                <div class="experiment active">
+                    <div class="status-badge active">Active</div>
+                    <h3 class="experiment-title">Automatic certificate generator for events</h3>
+                    <div class="experiment-desc">
+                        It takes a CSV file and certificate template as input and generates certificates for event and also mails them to participants in a single click. It uses PIL, barcode to generate barcode and overlay it on certificate along with name. Google OAuth, Supabase, and Gmail for authentication and email delivery.
+                    </div>
+                    <div class="experiment-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Flask</span>
+                        <span class="tech-tag">PIL</span>
+                        <span class="tech-tag">Google OAuth</span>
+                        <span class="tech-tag">Supabase</span>
+                        <span class="tech-tag">Gmail</span>
+                    </div>
+                    <div class="experiment-meta">
+                        <span>Started: Jan 2025</span>
+                        <span>Progress: 95%</span>
+                    </div>
+                    <div class="experiment-links">
+                        <a href="https://github.com/Dark-Kernel/itsa-certgen" target="_blank">repo</a>
+                        <!-- <a href="/lab/miniframe-docs" target="_blank">docs</a> -->
+                    </div>
+                </div>
+
+                <div class="experiment active">
+                    <div class="status-badge active">Active</div>
+                    <h3 class="experiment-title">Financial Advisor</h3>
+                    <div class="experiment-desc">
+                        Building a web app for financial advisor, providing recommendations and insights for investments based on user's income, expenses, preferences and other aspects.
+                    </div>
+                    <div class="experiment-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Flask</span>
+                        <span class="tech-tag">Machine Learning</span>
+                        <span class="tech-tag">LSTM Algorithm</span>
+                        <span class="tech-tag">NLP</span>
+                        <span class="tech-tag">Stock Data</span>
+                    </div>
+                    <div class="experiment-meta">
+                        <span>Started: Aug 2025</span>
+                        <span>Progress: 15%</span>
+                    </div>
+                    <div class="experiment-links">
+                        <!-- <a href="https://github.com/sumit/miniframe" target="_blank">repo</a> -->
+                        <!-- <a href="/lab/miniframe-docs" target="_blank">docs</a> -->
+                    </div>
+                </div>
+
+                <div class="experiment active">
+                    <div class="status-badge paused">Paused</div>
+                    <h3 class="experiment-title">Ambulance dispatch application</h3>
+                    <div class="experiment-desc">
+                        Building mobile application for ambulance dispatch. Exploring geolocation, real-time updates, and user authentication.
+                    </div>
+                    <div class="experiment-tech">
+                        <span class="tech-tag">Dart</span>
+                        <span class="tech-tag">Flutter</span>
+                        <span class="tech-tag">PostGIS</span>
+                        <span class="tech-tag">NestJS</span>
+                    </div>
+                    <div class="experiment-meta">
+                        <span>Started: Jan 2025</span>
+                        <span>Progress: 35%</span>
+                    </div>
+                    <div class="experiment-links">
+                        <a href="https://github.com/Z-xus/omb" target="_blank">repo</a>
+                        <!-- <a href="" target="_blank">demo</a> -->
+                    </div>
+                    <div class="learnings">
+                        <div class="learnings-title">Why Paused:</div>
+                        I'm not sure if I'm going to continue this project or not.
+                    </div>
+                </div>
+
+                <div class="experiment active">
+                    <div class="status-badge paused">Paused</div>
+                    <h3 class="experiment-title">WebRTC Screen Sharing Tool</h3>
+                    <div class="experiment-desc">
+                        CLI-based screen sharing without browser dependencies. Exploring direct WebRTC connections and efficient video encoding for remote work scenarios.
+                    </div>
+                    <div class="experiment-tech">
+                        <span class="tech-tag">C++</span>
+                        <span class="tech-tag">WebRTC</span>
+                        <span class="tech-tag">ffmpeg</span>
+                        <span class="tech-tag">X11</span>
+                    </div>
+                    <div class="experiment-meta">
+                        <span>Started: Mar 2025</span>
+                        <span>Progress: 20%</span>
+                    </div>
+                    <div class="learnings">
+                        <div class="learnings-title">Why Paused:</div>
+                        WebRTC is still a work in progress. I'm not sure if I'm going to continue this project or not.
+                    </div>
+                </div>
+
+                <div class="experiment paused">
+                    <div class="status-badge paused">Paused</div>
+                    <h3 class="experiment-title">Sieve Repo</h3>
+                    <div class="experiment-desc">
+                        An IMDB for youtube videos, to help users find best content for their needs, where resources are shared by everyone.
+                    </div>
+                    <div class="experiment-tech">
+                        <span class="tech-tag">NextJS</span>
+                        <span class="tech-tag">Supabase</span>
+                        <span class="tech-tag">Zod</span>
+                        <span class="tech-tag">Github Actions</span>
+                    </div>
+                    <div class="experiment-meta">
+                        <span>Started: Nov 2024</span>
+                        <span>Progress: 80%</span>
+                    </div>
+                    <div class="experiment-links">
+                        <a href="https://github.com/anaskhan28/sieve-repo" target="_blank">repo</a>
+                        <a href="https://createsieve.vercel.app" target="_blank">demo</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">$ git log --oneline --since="6 months" # Recent Completions</h2>
+            <div class="experiment-grid">
+                <div class="experiment archived">
+                    <div class="status-badge archived">Completed</div>
+                    <h3 class="experiment-title">Climbers Health Tracker</h3>
+                    <div class="experiment-desc">
+                        Health monitoring for climbers using custom metrics and alert system. Based on Arduino and ESP8266, heart rate and temperature sensor.
+                    </div>
+                    <div class="experiment-tech">
+                        <span class="tech-tag">Dart</span>
+                        <span class="tech-tag">Flutter</span>
+                        <span class="tech-tag">Arduino</span>
+                        <span class="tech-tag">C</span>
+                    </div>
+                    <div class="experiment-meta">
+                        <span>Completed: Mar 2025</span>
+                        <span>Runtime: 3 months</span>
+                    </div>
+                    <div class="learnings">
+                        <div class="learnings-title">Key Learnings:</div>
+                        Sensors are a complex system, and it's important to design the system to be as simple and efficient as possible.
+                    </div>
+                </div>
+
+                <div class="experiment archived">
+                    <div class="status-badge archived">Completed</div>
+                    <h3 class="experiment-title">Status.md</h3>
+                    <div class="experiment-desc">
+                        status.md is a CLI tool that summarizes your most recent local project work, using AI to analyze git diffs and give you a structured summary. Designed for developers who revisit projects after gaps of several days, it helps you get back into flow instantly.
+                    </div>
+                    <div class="experiment-tech">
+                        <span class="tech-tag">Go</span>
+                        <span class="tech-tag">AI</span>
+                        <span class="tech-tag">Gemini</span>
+                    </div>
+                    <div class="experiment-meta">
+                        <span>Completed: July 2025</span>
+                        <span>Runtime: 2 days</span>
+                    </div>
+                    <div class="learnings">
+                        <div class="learnings-title">Key Learnings:</div>
+                           There are multiple factors that can affect the quality of the summary, and it's important to consider all of them.
+                    </div>
+                </div>
+
+                <div class="experiment failed">
+                    <div class="status-badge failed">Failed</div>
+                    <h3 class="experiment-title">Custom DNS Server</h3>
+                    <div class="experiment-desc">
+                        Attempted to build a caching DNS resolver with ad-blocking and custom routing rules. Performance issues led to abandonment.
+                    </div>
+                    <div class="experiment-tech">
+                        <span class="tech-tag">Go</span>
+                        <span class="tech-tag">DNS Protocol</span>
+                        <span class="tech-tag">Redis</span>
+                    </div>
+                    <div class="experiment-meta">
+                        <span>Abandoned: Oct 2024</span>
+                        <span>Runtime: 6 weeks</span>
+                    </div>
+                    <div class="learnings">
+                        <div class="learnings-title">Why It Failed:</div>
+                        DNS queries need <5ms response time. My caching layer added 10-15ms overhead. Existing solutions (Pi-hole) are mature and optimized.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">$ cat ~/ideas/backlog.txt # Future Experiments</h2>
+            <div class="idea-list">
+                <div class="idea-item">
+                    Real-time collaborative terminal sessions using WebRTC data channels (like gmeet in cli)
+                </div>
+                <div class="idea-item">
+                    Bluetooth signal interceptor
+                </div>
+                <div class="idea-item">
+                    Speech to text model that catches linux commands.
+                </div>
+                <div class="idea-item">
+                    Custom shell with built-in fuzzy finding and command suggestions
+                </div>
+                <div class="idea-item">
+                    Counter Attacking Framework for Network Security, that can detect DOS attack and attack back to attacker's device.
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">$ git config --global lab.philosophy</h2>
+            <div style="background: var(--bg-subtle); border-left: 4px solid var(--accent); padding: 1.5rem; font-style: italic; color: var(--muted);">
+                "Fail fast, learn faster. Every experiment teaches something-even the failures. 
+                Build small, test quickly, document learnings. The goal isn't perfection; it's understanding. 
+                Some ideas are meant to be prototypes, not products."
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">$ man lab_guidelines</h2>
+            <div style="background: var(--bg-subtle); border: 1px solid var(--border); padding: 1.5rem;">
+                <h4 style="color: var(--accent); margin-bottom: 1rem;">Experiment Guidelines:</h4>
+                <ul style="list-style: none; padding-left: 0;">
+                    <li style="margin-bottom: 0.5rem; color: var(--muted);">→ Set clear success/failure criteria before starting</li>
+                    <li style="margin-bottom: 0.5rem; color: var(--muted);">→ Time-box experiments to prevent endless tinkering</li>
+                    <li style="margin-bottom: 0.5rem; color: var(--muted);">→ Document learnings even from failed attempts</li>
+                    <li style="margin-bottom: 0.5rem; color: var(--muted);">→ Prefer simple solutions over complex architectures</li>
+                    <li style="margin-bottom: 0.5rem; color: var(--muted);">→ Share interesting findings via blog posts or TIL entries</li>
+                    <li style="margin-bottom: 0.5rem; color: var(--muted);">→ Archive or delete experiments that serve no learning purpose</li>
+                </ul>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Lab updated continuously • All experiments are learning opportunities • Some things are meant to be broken</p>
+        </footer>
+    </div>
+</body>
+</html>
