@@ -6,241 +6,296 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TIL • sumit.engineer</title>
     <meta name="description" content="Quick insights, discoveries, and learnings from daily development work.">
-    
     <style>
-        :root {
-            --bg: #0f0f0f;
-            --text: #e5e5e5;
-            --accent: #00ff9f;
-            --muted: #888;
-            --border: #333;
-            --bg-subtle: #1a1a1a;
-            --warning: #ff9500;
-            --info: #0099ff;
-            --error: #ff4444;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            font-size: 14px;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-        
-        .header {
-            margin-bottom: 3rem;
-        }
-        
-        .prompt {
-            color: var(--accent);
-            font-weight: 600;
-        }
-        
-        .title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin: 0.5rem 0 1rem 0;
-        }
-        
-        .back-link {
-            color: var(--muted);
-            text-decoration: none;
-            font-size: 0.9rem;
-            margin-bottom: 2rem;
-            display: inline-block;
-        }
-        
-        .back-link:hover {
-            color: var(--accent);
-        }
-        
-        .search-box {
-            width: 100%;
-            background: var(--bg-subtle);
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 0.75rem 1rem;
-            font-family: inherit;
-            font-size: 0.9rem;
-            margin-bottom: 2rem;
-        }
-        
-        .search-box:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-        
-        .search-box::placeholder {
-            color: var(--muted);
-        }
-        
-        .filter-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
-        }
-        
-        .filter-tag {
-            background: var(--bg-subtle);
-            color: var(--muted);
-            padding: 0.5rem 1rem;
-            font-size: 0.8rem;
-            border: 1px solid var(--border);
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .filter-tag:hover,
-        .filter-tag.active {
-            background: var(--accent);
-            color: var(--bg);
-            border-color: var(--accent);
-        }
-        
-        .til-entry {
-            background: var(--bg-subtle);
-            border: 1px solid var(--border);
-            border-left: 4px solid var(--accent);
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            transition: border-color 0.2s ease;
-        }
-        
-        .til-entry:hover {
-            border-left-color: var(--warning);
-        }
-        
-        .til-entry.linux {
-            border-left-color: var(--info);
-        }
-        
-        .til-entry.docker {
-            border-left-color: #2496ed;
-        }
-        
-        .til-entry.python {
-            border-left-color: #3776ab;
-        }
-        
-        .til-entry.devops {
-            border-left-color: var(--warning);
-        }
-        
-        .til-entry.networking {
-            border-left-color: #ff6b6b;
-        }
-        
-        .til-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-        
-        .til-title {
-            font-weight: 600;
-            color: var(--text);
-            flex: 1;
-            margin-right: 1rem;
-        }
-        
-        .til-date {
-            color: var(--muted);
-            font-size: 0.8rem;
-            white-space: nowrap;
-        }
-        
-        .til-content {
-            color: var(--text);
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-        
-        .til-code {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            padding: 1rem;
-            font-family: inherit;
-            font-size: 0.9rem;
-            overflow-x: auto;
-            margin: 0.5rem 0;
-            color: var(--accent);
-        }
-        
-        .til-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-        
-        .til-tag {
-            background: var(--bg);
-            color: var(--accent);
-            padding: 0.25rem 0.5rem;
-            font-size: 0.75rem;
-            border: 1px solid var(--border);
-        }
-        
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-            padding: 1rem;
-            background: var(--bg-subtle);
-            border: 1px solid var(--border);
-        }
-        
-        .stat {
-            text-align: center;
-        }
-        
-        .stat-value {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--accent);
-            display: block;
-        }
-        
-        .stat-label {
-            font-size: 0.8rem;
-            color: var(--muted);
-            margin-top: 0.25rem;
-        }
-        
-        .footer {
-            margin-top: 4rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
-            text-align: center;
-            color: var(--muted);
-            font-size: 0.8rem;
-        }
-        
-        @media (max-width: 600px) {
-            .til-header {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-            
-            .til-title {
-                margin-right: 0;
-            }
-        }
+
+:root {
+    --bg: #0f0f0f;
+    --text: #e5e5e5;
+    --accent: #00ff9f;
+    --muted: #888;
+    --border: #333;
+    --bg-subtle: #1a1a1a;
+    --warning: #ff9500;
+    --info: #0099ff;
+    --error: #ff4444;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.header {
+    margin-bottom: 3rem;
+}
+
+.prompt {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0.5rem 0 1rem 0;
+}
+
+.back-link {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    display: inline-block;
+}
+
+.back-link:hover {
+    color: var(--accent);
+}
+
+.search-box {
+    width: 100%;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.75rem 1rem;
+    font-family: inherit;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    transition: all 0.2s ease;
+}
+
+.search-box:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 15px rgba(0, 255, 159, 0.15);
+}
+
+.search-box::placeholder {
+    color: var(--muted);
+}
+
+.filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.filter-tag {
+    background: var(--bg-subtle);
+    color: var(--muted);
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.filter-tag:hover,
+.filter-tag.active {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+    box-shadow: 0 0 15px rgba(0, 255, 159, 0.3);
+}
+
+.til-entry {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.2s ease;
+}
+
+.til-entry:hover {
+    border-left-color: var(--warning);
+    background: rgba(0, 255, 159, 0.02);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.til-entry.linux { border-left-color: var(--info); }
+.til-entry.docker { border-left-color: #2496ed; }
+.til-entry.python { border-left-color: #3776ab; }
+.til-entry.devops { border-left-color: var(--warning); }
+.til-entry.networking { border-left-color: #ff6b6b; }
+.til-entry.security { border-left-color: var(--error); }
+.til-entry.database { border-left-color: #9b59b6; }
+.til-entry.vim { border-left-color: var(--accent); }
+.til-entry.git { border-left-color: #f05032; }
+.til-entry.bash { border-left-color: #4eaa25; }
+
+.til-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.til-title {
+    font-weight: 600;
+    color: var(--text);
+    flex: 1;
+    margin-right: 1rem;
+}
+
+.til-date {
+    color: var(--muted);
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+.til-content {
+    color: var(--text);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.til-content code {
+    background: var(--bg);
+    padding: 0.15rem 0.4rem;
+    color: var(--accent);
+    font-size: 0.9em;
+    border: 1px solid var(--border);
+}
+
+.til-content strong {
+    color: var(--text);
+}
+
+.til-content em {
+    color: var(--muted);
+    font-style: italic;
+}
+
+.til-code {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 1rem;
+    font-family: inherit;
+    font-size: 0.85rem;
+    overflow-x: auto;
+    margin: 0.75rem 0;
+    color: var(--accent);
+    line-height: 1.6;
+    white-space: pre;
+    tab-size: 2;
+}
+
+.til-code .comment,
+.til-code .cmt {
+    color: #6a737d;
+    font-style: italic;
+}
+
+.til-code .keyword,
+.til-code .kw {
+    color: #ff79c6;
+}
+
+.til-code .string,
+.til-code .str {
+    color: #f1fa8c;
+}
+
+.til-code .function,
+.til-code .fn {
+    color: #50fa7b;
+}
+
+.til-code .number,
+.til-code .num {
+    color: #bd93f9;
+}
+
+.til-code .operator,
+.til-code .op {
+    color: #ff79c6;
+}
+
+.til-code .punctuation,
+.til-code .punct {
+    color: #8be9fd;
+}
+
+.til-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.til-tag {
+    background: var(--bg);
+    color: var(--accent);
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    border: 1px solid var(--border);
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 0.25rem;
+}
+
+.footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
+@media (max-width: 600px) {
+    .til-header {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .til-title {
+        margin-right: 0;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -251,199 +306,303 @@
             <h1 class="title">Today I Learned</h1>
         </header>
 
-        <input type="text" class="search-box" placeholder="$ grep -i 'search term' *.til" id="searchBox">
+        <input type="text" class="search-box" id="searchBox" placeholder="$ grep -i 'search term' *.til">
         
         <div class="filter-tags">
-            <span class="filter-tag active" data-tag="all">all</span>
-            <span class="filter-tag" data-tag="linux">linux</span>
-            <span class="filter-tag" data-tag="docker">docker</span>
-            <span class="filter-tag" data-tag="python">python</span>
-            <span class="filter-tag" data-tag="devops">devops</span>
-            <span class="filter-tag" data-tag="networking">networking</span>
+            <span class="filter-tag" data-tag="all">all</span>
+<span class="filter-tag" data-tag="cli">cli</span>
+<span class="filter-tag" data-tag="database">database</span>
+<span class="filter-tag" data-tag="devops">devops</span>
+<span class="filter-tag" data-tag="docker">docker</span>
+<span class="filter-tag" data-tag="linux">linux</span>
+<span class="filter-tag" data-tag="networking">networking</span>
+<span class="filter-tag" data-tag="nginx">nginx</span>
+<span class="filter-tag" data-tag="postgres">postgres</span>
+<span class="filter-tag" data-tag="python">python</span>
+<span class="filter-tag" data-tag="ssh">ssh</span>
+<span class="filter-tag" data-tag="systemd">systemd</span>
         </div>
 
         <div class="stats">
             <div class="stat">
-                <span class="stat-value">127</span>
+                <span class="stat-value">7</span>
                 <div class="stat-label">Total TILs</div>
             </div>
             <div class="stat">
-                <span class="stat-value">8</span>
+                <span class="stat-value">1</span>
                 <div class="stat-label">This month</div>
             </div>
             <div class="stat">
-                <span class="stat-value">15</span>
+                <span class="stat-value">11</span>
                 <div class="stat-label">Categories</div>
             </div>
             <div class="stat">
-                <span class="stat-value">2.1</span>
+                <span class="stat-value">0.9</span>
                 <div class="stat-label">Per week avg</div>
             </div>
         </div>
 
         <div class="til-entries">
-            <article class="til-entry linux">
-                <div class="til-header">
-                    <h3 class="til-title">systemd service dependencies with After= vs Requires=</h3>
-                    <div class="til-date">2025-01-29</div>
-                </div>
-                <div class="til-content">
-                    Discovered the subtle difference: <code>After=</code> only controls startup order, while <code>Requires=</code> creates a dependency that stops this service if the required service fails. Use <code>Wants=</code> for loose coupling.
-                </div>
-                <div class="til-code"># Start after network, but don't fail if network fails
-After=network.target
-Wants=network.target
+            
+<article class="til-entry devops">
+    <div class="til-header">
+        <h3 class="til-title">ssh tunnel</h3>
+        <div class="til-date">2026-04-03</div>
+    </div>
+    <div class="til-content">
+        <p>
+1. From client to server 
+</p>
+<pre class="til-code">ssh -N -L 8080:localhost:8080 user@server
+<p>
+</pre> 
+</p>
+<p>
+2. From server to client 
+</p>
+<pre class="til-code">ssh -N -R 8080:localhost:8080 user@server
+<p>
+</pre> 
+</p>
+<p>
+<strong>Pro tip:</strong>: You can also use <code>ssh -N -f -L 8080:localhost:8080 user@server</code> 
+</p>
+<p>
+> You can do it always :) 
+</p>
+    </div>
+    <div class="til-tags">
+        <span class="til-tag">ssh</span><span class="til-tag">devops</span>
+    </div>
+</article>
 
-# vs requiring PostgreSQL to be running
-Requires=postgresql.service
-After=postgresql.service</div>
-                <div class="til-tags">
-                    <span class="til-tag">systemd</span>
-                    <span class="til-tag">linux</span>
-                    <span class="til-tag">services</span>
-                </div>
-            </article>
+<article class="til-entry linux">
+    <div class="til-header">
+        <h3 class="til-title">systemd service dependencies with After= vs Requires=</h3>
+        <div class="til-date">2025-01-29</div>
+    </div>
+    <div class="til-content">
+        <p>
+Discovered the subtle difference: <code>After=</code> only controls startup order, while <code>Requires=</code> creates a dependency that stops this service if the required service fails. Use <code>Wants=</code> for loose coupling. 
+</p>
+<pre class="til-code"><span class="comment"># Start after network, but don't fail if network fails</span>
+<p>
+After=network.target 
+Wants=network.target 
+</p>
+<p>
+<span class="comment"># vs requiring PostgreSQL to be running</span> 
+Requires=postgresql.service 
+After=postgresql.service 
+</pre> 
+</p>
+<p>
+The key insight: <strong>Wants=</strong> is what you want for most cases - it starts the service but doesn't cascade failures. 
+</p>
+    </div>
+    <div class="til-tags">
+        <span class="til-tag">linux</span><span class="til-tag">systemd</span><span class="til-tag">devops</span>
+    </div>
+</article>
 
-            <article class="til-entry docker">
-                <div class="til-header">
-                    <h3 class="til-title">Docker multi-stage builds can share intermediate layers</h3>
-                    <div class="til-date">2025-01-28</div>
-                </div>
-                <div class="til-content">
-                    Using <code>--target</code> flag allows building specific stages, and you can reference previous stages with <code>COPY --from=stage_name</code>. Great for separating build tools from runtime.
-                </div>
-                <div class="til-code">FROM node:18 AS builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci --only=production
+<article class="til-entry docker">
+    <div class="til-header">
+        <h3 class="til-title">Docker multi-stage builds can share intermediate layers</h3>
+        <div class="til-date">2025-01-28</div>
+    </div>
+    <div class="til-content">
+        <p>
+Using <code>--target</code> flag allows building specific stages, and you can reference previous stages with <code>COPY --from=stage_name</code>. Great for separating build tools from runtime. 
+</p>
+<pre class="til-code">FROM node:18 AS builder
+<p>
+WORKDIR /app 
+COPY package*.json ./ 
+RUN npm ci --only=production 
+</p>
+<p>
+FROM node:18-alpine AS runtime 
+COPY --from=builder /app/node_modules ./node_modules 
+</pre> 
+</p>
+<p>
+<strong>Pro tip:</strong> Name your stages descriptively for easier referencing later. 
+</p>
+    </div>
+    <div class="til-tags">
+        <span class="til-tag">docker</span><span class="til-tag">devops</span>
+    </div>
+</article>
 
-FROM node:18-alpine AS runtime
-COPY --from=builder /app/node_modules ./node_modules</div>
-                <div class="til-tags">
-                    <span class="til-tag">docker</span>
-                    <span class="til-tag">optimization</span>
-                    <span class="til-tag">build</span>
-                </div>
-            </article>
+<article class="til-entry python">
+    <div class="til-header">
+        <h3 class="til-title">PostgreSQL UPSERT with ON CONFLICT in Python</h3>
+        <div class="til-date">2025-01-27</div>
+    </div>
+    <div class="til-content">
+        <p>
+PostgreSQL's <code>ON CONFLICT</code> clause is perfect for idempotent operations. Much cleaner than try/except INSERT/UPDATE patterns. 
+</p>
+<pre class="til-code">INSERT INTO users (email, name) 
+<p>
+VALUES (%s, %s) 
+ON CONFLICT (email)  
+DO UPDATE SET  
+    name = EXCLUDED.name, 
+    updated_at = NOW() 
+</pre> 
+</p>
+<p>
+The <code>EXCLUDED</code> keyword refers to the values that were attempted to be inserted. 
+</p>
+    </div>
+    <div class="til-tags">
+        <span class="til-tag">python</span><span class="til-tag">database</span><span class="til-tag">postgres</span>
+    </div>
+</article>
 
-            <article class="til-entry python">
-                <div class="til-header">
-                    <h3 class="til-title">PostgreSQL UPSERT with ON CONFLICT in Python</h3>
-                    <div class="til-date">2025-01-27</div>
-                </div>
-                <div class="til-content">
-                    PostgreSQL's <code>ON CONFLICT</code> clause is perfect for idempotent operations. Much cleaner than try/except INSERT/UPDATE patterns.
-                </div>
-                <div class="til-code">INSERT INTO users (email, name) 
-VALUES (%s, %s)
-ON CONFLICT (email) 
-DO UPDATE SET 
-    name = EXCLUDED.name,
-    updated_at = NOW()</div>
-                <div class="til-tags">
-                    <span class="til-tag">postgresql</span>
-                    <span class="til-tag">python</span>
-                    <span class="til-tag">database</span>
-                </div>
-            </article>
+<article class="til-entry linux">
+    <div class="til-header">
+        <h3 class="til-title">ss command is the modern replacement for netstat</h3>
+        <div class="til-date">2025-01-26</div>
+    </div>
+    <div class="til-content">
+        <p>
+<code>ss</code> is faster and provides more detailed socket information. Use <code>ss -tlnp</code> to show listening TCP ports with process info. 
+</p>
+<pre class="til-code"><span class="comment"># Show listening TCP ports with process names</span>
+<p>
+ss -tlnp 
+</p>
+<p>
+<span class="comment"># Show established connections to specific port</span> 
+ss -t state established '( dport = :80 or sport = :80 )' 
+</pre> 
+</p>
+<p>
+<strong>Bonus:</strong> Combine with <code>watch</code> for real-time monitoring: <code>watch -n 1 ss -tlnp</code> 
+</p>
+    </div>
+    <div class="til-tags">
+        <span class="til-tag">linux</span><span class="til-tag">networking</span><span class="til-tag">cli</span>
+    </div>
+</article>
 
-            <article class="til-entry networking">
-                <div class="til-header">
-                    <h3 class="til-title">ss command is the modern replacement for netstat</h3>
-                    <div class="til-date">2025-01-26</div>
-                </div>
-                <div class="til-content">
-                    <code>ss</code> is faster and provides more detailed socket information. Use <code>ss -tlnp</code> to show listening TCP ports with process info.
-                </div>
-                <div class="til-code"># Show listening TCP ports with process names
-ss -tlnp
+<article class="til-entry devops">
+    <div class="til-header">
+        <h3 class="til-title">Nginx rate limiting with burst and nodelay</h3>
+        <div class="til-date">2025-01-25</div>
+    </div>
+    <div class="til-content">
+        <p>
+The <code>burst</code> parameter allows temporary spikes, while <code>nodelay</code> processes burst requests immediately instead of queuing them. 
+</p>
+<pre class="til-code">limit_req_zone $binary_remote_addr zone=api:10m rate=10r/s;
+<p>
+location /api/ { 
+    limit_req zone=api burst=20 nodelay; 
+    proxy_pass http://backend; 
+} 
+</pre> 
+</p>
+<p>
+This allows 20 requests to burst through immediately before rate limiting kicks in. 
+</p>
+    </div>
+    <div class="til-tags">
+        <span class="til-tag">nginx</span><span class="til-tag">devops</span><span class="til-tag">networking</span>
+    </div>
+</article>
 
-# Show established connections to specific port
-ss -t state established '( dport = :80 or sport = :80 )'</div>
-                <div class="til-tags">
-                    <span class="til-tag">networking</span>
-                    <span class="til-tag">linux</span>
-                    <span class="til-tag">debugging</span>
-                </div>
-            </article>
-
-            <article class="til-entry devops">
-                <div class="til-header">
-                    <h3 class="til-title">Nginx rate limiting with burst and nodelay</h3>
-                    <div class="til-date">2025-01-25</div>
-                </div>
-                <div class="til-content">
-                    The <code>burst</code> parameter allows temporary spikes, while <code>nodelay</code> processes burst requests immediately instead of queuing them.
-                </div>
-                <div class="til-code">limit_req_zone $binary_remote_addr zone=api:10m rate=10r/s;
-
-location /api/ {
-    limit_req zone=api burst=20 nodelay;
-    proxy_pass http://backend;
-}</div>
-                <div class="til-tags">
-                    <span class="til-tag">nginx</span>
-                    <span class="til-tag">rate-limiting</span>
-                    <span class="til-tag">devops</span>
-                </div>
-            </article>
-
-            <article class="til-entry linux">
-                <div class="til-header">
-                    <h3 class="til-title">journalctl can follow logs in real-time like tail -f</h3>
-                    <div class="til-date">2025-01-24</div>
-                </div>
-                <div class="til-content">
-                    Use <code>journalctl -f</code> to follow logs, <code>-u service_name</code> for specific services, and <code>--since "1 hour ago"</code> for time-based filtering.
-                </div>
-                <div class="til-code"># Follow nginx logs from the last hour
-journalctl -u nginx -f --since "1 hour ago"
-
-# Show logs with specific priority
-journalctl -p err -f</div>
-                <div class="til-tags">
-                    <span class="til-tag">journalctl</span>
-                    <span class="til-tag">systemd</span>
-                    <span class="til-tag">logging</span>
-                </div>
-            </article>
+<article class="til-entry linux">
+    <div class="til-header">
+        <h3 class="til-title">journalctl can follow logs in real-time like tail -f</h3>
+        <div class="til-date">2025-01-24</div>
+    </div>
+    <div class="til-content">
+        <p>
+Use <code>journalctl -f</code> to follow logs, <code>-u service_name</code> for specific services, and <code>--since "1 hour ago"</code> for time-based filtering. 
+</p>
+<pre class="til-code">
+<p>
+<span class="comment"># Follow nginx logs from the last hour</span> 
+journalctl -u nginx -f --since "1 hour ago" 
+</p>
+<p>
+<span class="comment"># Show logs with specific priority</span> 
+journalctl -p err -f 
+</p>
+<p>
+<span class="comment"># Follow all logs for a specific binary</span> 
+journalctl -f /usr/sbin/nginx 
+</pre> 
+</p>
+<p>
+<strong>Pro tip:</strong> Use <code>--no-pager</code> when scripting to avoid interactive behavior. 
+</p>
+    </div>
+    <div class="til-tags">
+        <span class="til-tag">linux</span><span class="til-tag">systemd</span><span class="til-tag">devops</span>
+    </div>
+</article>
+            <div class="til-entry no-results" style="display: none;">
+                <div class="til-content">No entries match your search criteria</div>
+            </div>
         </div>
 
         <footer class="footer">
             <p>TIL entries are brief discoveries and insights from daily work • Searchable and filterable</p>
         </footer>
     </div>
-
     <script>
-        // Simple search functionality
-        const searchBox = document.getElementById('searchBox');
-        const filterTags = document.querySelectorAll('.filter-tag');
-        const tilEntries = document.querySelectorAll('.til-entry');
 
-        searchBox.addEventListener('input', filterEntries);
-        filterTags.forEach(tag => tag.addEventListener('click', setActiveFilter));
+(function() {
+    const searchBox = document.getElementById('searchBox');
+    const filterTags = document.querySelectorAll('.filter-tag');
+    const entries = document.querySelectorAll('.til-entry');
+    const countDisplay = document.getElementById('entryCount');
 
-        function setActiveFilter(e) {
-            filterTags.forEach(tag => tag.classList.remove('active'));
-            e.target.classList.add('active');
+    let activeTag = 'all';
+
+    filterTags.forEach(tag => {
+        tag.addEventListener('click', () => {
+            filterTags.forEach(t => t.classList.remove('active'));
+            tag.classList.add('active');
+            activeTag = tag.dataset.tag;
             filterEntries();
+        });
+    });
+
+    searchBox.addEventListener('input', filterEntries);
+
+    function filterEntries() {
+        const term = searchBox.value.toLowerCase().trim();
+        let visibleCount = 0;
+
+        entries.forEach(entry => {
+            const title = entry.querySelector('.til-title').textContent.toLowerCase();
+            const content = entry.querySelector('.til-content').textContent.toLowerCase();
+            const tags = Array.from(entry.querySelectorAll('.til-tag'))
+                .map(t => t.textContent.toLowerCase());
+
+            const matchSearch = !term || title.includes(term) || content.includes(term);
+            const matchTag = activeTag === 'all' ||
+                entry.classList.contains(activeTag) ||
+                tags.includes(activeTag);
+
+            entry.style.display = matchSearch && matchTag ? 'block' : 'none';
+            if (matchSearch && matchTag) visibleCount++;
+        });
+
+        countDisplay.textContent = visibleCount;
+
+        const noResults = document.querySelector('.no-results');
+        if (noResults) {
+            noResults.style.display = visibleCount === 0 ? 'block' : 'none';
         }
+    }
+})();
 
-        function filterEntries() {
-            const searchTerm = searchBox.value.toLowerCase();
-            const activeTag = document.querySelector('.filter-tag.active').dataset.tag;
-
-            tilEntries.forEach(entry => {
-                const title = entry.querySelector('.til-title').textContent.toLowerCase();
-                const content = entry.querySelector('.til-content').textContent.toLowerCase();
-                const tags = Array.from(entry.querySelectorAll('.til-tag')).map(tag => tag.textContent);
-                
-                const matchesSearch = title.includes(searchTerm) || content.includes(searchTerm);
-                const matchesTag = activeTag === 'all' || entry.classList.contains(activeTag);
-
-                entry.style.display = matchesSearch && matchesTag ? 'block' : 'none';
-            });
-        }
     </script>
 </body>
 </html>
